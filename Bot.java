@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class Bot extends Player
 {
-    @Override
+
+
     public void SetPosition()
     {
         Random rand = new Random();

@@ -7,6 +7,8 @@ public class Player
 
     protected int pos;
 
+
+
     public int GetPosition()
     {
         return pos;

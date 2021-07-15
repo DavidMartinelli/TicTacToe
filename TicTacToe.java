@@ -1,24 +1,41 @@
 package com.company;
 
-public class TicTacToe 
+public class TicTacToe
 {
     char c;
     private boolean gameEnded = false;
+    private boolean isInputOk = true;
+    private int spacecounter;
+    private String winner;
+    public String GetWinner()
+    {
+        return winner;
+    }
+    public boolean isInputOk()
+    {
+        return isInputOk;
+    }
 
-    public void setGameEnded(boolean gameEnded) 
+    public boolean isGameEnded()
+    {
+        return gameEnded;
+    }
+
+
+    public void setGameEnded(boolean gameEnded)
     {
         this.gameEnded = gameEnded;
     }
 
 
-    public static char GameTable[][] =
-        {
-            {' ','|',' ','|',' '},
-            {'-','+','-','+','-'},
-            {' ','|',' ','|',' '},
-            {'-','+','-','+','-'},
-            {' ','|',' ','|',' '}
-        };
+    public  static char GameTable[][] =
+            {
+                    {' ','|',' ','|',' '},
+                    {'-','+','-','+','-'},
+                    {' ','|',' ','|',' '},
+                    {'-','+','-','+','-'},
+                    {' ','|',' ','|',' '}
+            };
 
     public void PrintGameTable()
     {
@@ -29,7 +46,6 @@ public class TicTacToe
         }
 
     }
-
     public void setC(String who)
     {
         if(who.equals("player"))
@@ -44,74 +60,83 @@ public class TicTacToe
 
     public void CheckWin()
     {
-        if(GameTable[0][0] == 'X'&&GameTable[0][2] == 'X'&&GameTable[0][4] == 'X'||
-                (GameTable[4][0] == 'X'&&GameTable[4][2] == 'X'&&GameTable[4][4] == 'X')||
-                (GameTable[2][0] == 'X'&&GameTable[2][2] == 'X'&&GameTable[2][4] == 'X')||
-                (GameTable[0][0]=='X'&&GameTable[2][0]=='X'&&GameTable[4][0]=='X')||
-                (GameTable[0][2]=='X'&&GameTable[2][2]=='X'&&GameTable[4][2]=='X')||
-                (GameTable[0][4]=='X'&&GameTable[2][4]=='X'&&GameTable[4][4]=='X')||
-                (GameTable[0][0] =='X'&&GameTable[2][2] =='X'&&GameTable[4][4] =='X')||
-                (GameTable[0][4] =='X'&&GameTable[2][2] =='X'&&GameTable[4][0] =='X'))
+        if(CheckWin('X')==true)
+        {
 
-        {
-            System.out.println("IL GIOCATORE 'X' HA VINTO");
-            gameEnded = true;
+            winner = "X";
         }
-        else if(GameTable[0][0] == 'O'&&GameTable[0][2] == 'O'&&GameTable[0][4] == 'O'||
-                (GameTable[4][0] == 'O'&&GameTable[4][2] == 'O'&&GameTable[4][4] == 'O')||
-                (GameTable[2][0] == 'O'&&GameTable[2][2] == 'O'&&GameTable[2][4] == 'O')||
-                (GameTable[0][0] == 'O'&&GameTable[2][0] =='O'&&GameTable[4][0]=='O')||
-                (GameTable[0][2] == 'O'&&GameTable[2][2] =='O'&&GameTable[4][2]=='O')||
-                (GameTable[0][4] == 'O'&&GameTable[2][4] =='O'&&GameTable[4][4]=='O')||
-                (GameTable[0][0] == 'O'&&GameTable[2][2] =='O'&&GameTable[4][4] =='O')||
-                (GameTable[0][4] == 'O'&&GameTable[2][2] =='O'&&GameTable[4][0] =='O'))
+        else if(CheckWin('O')==true)
         {
-            System.out.println("IL GIOCATORE 'O' HA VINTO");
-            gameEnded = true;
+
+            winner = "O";
         }
-        else
-        {
-            System.out.println("PAREGGIO");
-        }
+
     }
+    public boolean CheckWin(char aCharacter)
+    {
 
+
+        if(GameTable[0][0] == aCharacter&&GameTable[0][2]==aCharacter&&GameTable[0][4]==aCharacter||
+                (GameTable[4][0]==aCharacter&&GameTable[4][2]==aCharacter&&GameTable[4][4]==aCharacter)||
+                (GameTable[2][0]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[2][4]==aCharacter)||
+                (GameTable[0][0]==aCharacter&&GameTable[2][0]==aCharacter&&GameTable[4][0]==aCharacter)||
+                (GameTable[0][2]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[4][2]==aCharacter)||
+                (GameTable[0][4]==aCharacter&&GameTable[2][4]==aCharacter&&GameTable[4][4]==aCharacter)||
+                (GameTable[0][0]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[4][4]==aCharacter)||
+                (GameTable[0][4]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[4][0]==aCharacter))
+        {
+            gameEnded = true;
+            return true;
+        }
+
+        return false;
+    }
+    private void SetPlace(int i, int j)
+    {
+        if(GameTable[i][j]==' ')
+        {
+            GameTable[i][j] = c;
+            isInputOk = true;
+        }
+        else if (GameTable[i][j]!=' ' && c =='X')
+        {
+            System.out.println("Errore inserire una casella vuota");
+            isInputOk = false;
+        }
+        else isInputOk = false;
+    }
     public void Place(int pos)
     {
         switch(pos)
         {
             case 1:
-                TicTacToe.GameTable[0][0] =c ;
-                break;
+                 SetPlace(0,0);
+                    break;
             case 2:
-                TicTacToe.GameTable[0][2] =c;
-                break;
+                 SetPlace(0,2);
+                    break;
             case 3:
-                TicTacToe.GameTable[0][4]=c ;
-                break;
+                  SetPlace(0,4);
+                    break;
             case 4:
-                TicTacToe.GameTable[2][0] =c ;
-                break;
+                 SetPlace(2,0);
+                    break;
             case 5:
-                TicTacToe.GameTable[2][2] =c ;
-                break;
+                  SetPlace(2,2);
+                    break;
             case 6:
-                TicTacToe.GameTable[2][4]=c ;
-                break;
+                 SetPlace(2,4);
+                    break;
             case 7:
-                TicTacToe.GameTable[4][0] =c ;
-                break;
+                 SetPlace(4,0);
+                    break;
             case 8:
-                TicTacToe.GameTable[4][2] = c;
-                break;
+                 SetPlace(4,2);
+                    break;
             case 9:
-                TicTacToe.GameTable[4][4]= c;
-                break;
+                 SetPlace(4,4);
+                    break;
         }
-    }
 
-    public boolean isGameEnded() 
-    { 
-        return gameEnded; 
     }
-
 }
