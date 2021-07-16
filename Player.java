@@ -4,11 +4,7 @@ import java.util.Scanner;
 
 public class Player
 {
-
     protected int pos;
-
-
-
     public int GetPosition()
     {
         return pos;
@@ -19,6 +15,4 @@ public class Player
         int pos = scan.nextInt();
         this.pos = pos;
     }
-
-
 }

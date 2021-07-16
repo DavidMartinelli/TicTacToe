@@ -8,26 +8,33 @@ public class Game
     public void Play()
     {
         tris.PrintGameTable();
-        while(tris.isGameEnded()!=true)
+        while(!tris.isGameEnded())
         {
-
+            tris.PrintGameTable();
+            tris.CheckWin();
             System.out.println("Inserisci la tua mossa (1-9)");
             tris.setC("player");
             SetPlayerMove();
+            tris.PrintGameTable();
             tris.setC("cpu");
             SetBotMove();
-            tris.PrintGameTable();
-            tris.CheckWin();
-
         }
-
-            System.out.printf("il vincitore è %s",tris.GetWinner());
-
+        if(tris.GetWinner().equals("Tie"))
+        {
+            System.out.println("Complimenti ad entrambi , avete pareggiato");
+        }
+        else
+        {
+            System.out.printf("il giocatore %s ha vinto!",tris.GetWinner());
+        }
     }
     public void  SetPlayerMove()
     {
-        player1.SetPosition();
-        tris.Place(player1.GetPosition());
+        if(tris.isSpaceFounded())
+        {
+            player1.SetPosition();
+            tris.Place(player1.GetPosition());
+        }
         if(tris.isInputOk()==false)
         {
             SetPlayerMove();
@@ -35,8 +42,11 @@ public class Game
     }
     public  void SetBotMove()
     {
-        cpu.SetPosition();
-        tris.Place(cpu.GetPosition());
+        if(tris.isSpaceFounded())
+        {
+            cpu.SetPosition();
+            tris.Place(cpu.GetPosition());
+        }
         if(tris.isInputOk()==false)
         {
             SetBotMove();

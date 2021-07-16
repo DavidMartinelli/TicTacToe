@@ -2,10 +2,9 @@ package com.company;
 
 public class TicTacToe
 {
-    char c;
-    private boolean gameEnded = false;
+    char player;
+    public boolean gameEnded = false;
     private boolean isInputOk = true;
-    private int spacecounter;
     private String winner;
     public String GetWinner()
     {
@@ -15,18 +14,10 @@ public class TicTacToe
     {
         return isInputOk;
     }
-
     public boolean isGameEnded()
     {
         return gameEnded;
     }
-
-
-    public void setGameEnded(boolean gameEnded)
-    {
-        this.gameEnded = gameEnded;
-    }
-
 
     public  static char GameTable[][] =
             {
@@ -36,7 +27,6 @@ public class TicTacToe
                     {'-','+','-','+','-'},
                     {' ','|',' ','|',' '}
             };
-
     public void PrintGameTable()
     {
         for(char[] riga:GameTable)
@@ -44,38 +34,57 @@ public class TicTacToe
             for (char c:  riga) System.out.print(c);
             System.out.println();
         }
-
     }
     public void setC(String who)
     {
         if(who.equals("player"))
         {
-            c = 'X';
+            player = 'X';
         }
         else if (who.equals("cpu"))
         {
-            c = 'O';
+            player = 'O';
         }
     }
-
     public void CheckWin()
     {
         if(CheckWin('X')==true)
         {
-
             winner = "X";
         }
         else if(CheckWin('O')==true)
         {
-
             winner = "O";
         }
-
+        else if(!CheckWin('O')&&!CheckWin('X')&&!isSpaceFounded())
+        {
+            gameEnded = true;
+            winner = "Tie";
+        }
+    }
+    public boolean isSpaceFounded()
+    {
+        int n = 0;
+        boolean found = false;
+        for(char arr[]: GameTable)
+        {
+            for(char c : arr)
+            {
+                if(c == ' ')
+                {
+                    n++;
+                    found  = true;
+                }
+            }
+        }
+        if(n==0)
+        {
+            found = false;
+        }
+        return found;
     }
     public boolean CheckWin(char aCharacter)
     {
-
-
         if(GameTable[0][0] == aCharacter&&GameTable[0][2]==aCharacter&&GameTable[0][4]==aCharacter||
                 (GameTable[4][0]==aCharacter&&GameTable[4][2]==aCharacter&&GameTable[4][4]==aCharacter)||
                 (GameTable[2][0]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[2][4]==aCharacter)||
@@ -88,17 +97,16 @@ public class TicTacToe
             gameEnded = true;
             return true;
         }
-
         return false;
     }
     private void SetPlace(int i, int j)
     {
         if(GameTable[i][j]==' ')
         {
-            GameTable[i][j] = c;
+            GameTable[i][j] = player;
             isInputOk = true;
         }
-        else if (GameTable[i][j]!=' ' && c =='X')
+        else if (GameTable[i][j]!=' ' && player =='X')
         {
             System.out.println("Errore inserire una casella vuota");
             isInputOk = false;
@@ -137,6 +145,5 @@ public class TicTacToe
                  SetPlace(4,4);
                     break;
         }
-
     }
 }
