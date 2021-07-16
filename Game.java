@@ -7,17 +7,20 @@ public class Game
 
     public void Play()
     {
-        tris.PrintGameTable();
+
         while(!tris.isGameEnded())
         {
             tris.PrintGameTable();
-            tris.CheckWin();
             System.out.println("Inserisci la tua mossa (1-9)");
             tris.setC("player");
             SetPlayerMove();
+            tris.CheckWin();
             tris.PrintGameTable();
             tris.setC("cpu");
             SetBotMove();
+            tris.CheckWin();
+            tris.PrintGameTable();
+
         }
         if(tris.GetWinner().equals("Tie"))
         {
