@@ -15,4 +15,5 @@ public class Player
         int pos = scan.nextInt();
         this.pos = pos;
     }
+
 }

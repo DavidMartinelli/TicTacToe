@@ -18,22 +18,25 @@ public class TicTacToe
     {
         return gameEnded;
     }
-
-    public  static char GameTable[][] =
-            {
-                    {' ','|',' ','|',' '},
-                    {'-','+','-','+','-'},
-                    {' ','|',' ','|',' '},
-                    {'-','+','-','+','-'},
-                    {' ','|',' ','|',' '}
-            };
-    public void PrintGameTable()
+    private char[][] board = new char [3][3];
+    public void printGameBoard()
     {
-        for(char[] riga:GameTable)
+        for(char[] arr : board)
         {
-            for (char c:  riga) System.out.print(c);
-            System.out.println();
+            System.out.println("===============");
+            for(char c: arr)
+            {
+                if (c==0)
+                {
+                    c=' ';
+                }
+                System.out.printf("| %c |",c);
+
+            }
+
+            System.out.println("");
         }
+        System.out.println("===============");
     }
     public void setC(String who)
     {
@@ -66,11 +69,11 @@ public class TicTacToe
     {
         int n = 0;
         boolean found = false;
-        for(char arr[]: GameTable)
+        for(char arr[]: board)
         {
             for(char c : arr)
             {
-                if(c == ' ')
+                if(c ==0)
                 {
                     n++;
                     found  = true;
@@ -85,14 +88,14 @@ public class TicTacToe
     }
     public boolean CheckWin(char aCharacter)
     {
-        if(GameTable[0][0] == aCharacter&&GameTable[0][2]==aCharacter&&GameTable[0][4]==aCharacter||
-                (GameTable[4][0]==aCharacter&&GameTable[4][2]==aCharacter&&GameTable[4][4]==aCharacter)||
-                (GameTable[2][0]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[2][4]==aCharacter)||
-                (GameTable[0][0]==aCharacter&&GameTable[2][0]==aCharacter&&GameTable[4][0]==aCharacter)||
-                (GameTable[0][2]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[4][2]==aCharacter)||
-                (GameTable[0][4]==aCharacter&&GameTable[2][4]==aCharacter&&GameTable[4][4]==aCharacter)||
-                (GameTable[0][0]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[4][4]==aCharacter)||
-                (GameTable[0][4]==aCharacter&&GameTable[2][2]==aCharacter&&GameTable[4][0]==aCharacter))
+        if((board[1][0]==aCharacter&&board[1][1]==aCharacter&&board[1][2]==aCharacter)||
+                (board[2][0]==aCharacter&&board[2][1]==aCharacter&&board[2][2]==aCharacter)||
+                (board[0][0]==aCharacter&&board[1][0]==aCharacter&&board[2][0]==aCharacter)||
+                (board[0][1]==aCharacter&&board[1][1]==aCharacter&&board[2][1]==aCharacter)||
+                (board[0][2]==aCharacter&&board[1][2]==aCharacter&&board[2][2]==aCharacter)||
+                (board[0][0]==aCharacter&&board[1][1]==aCharacter&&board[2][2]==aCharacter)||
+                (board[0][2]==aCharacter&&board[1][1]==aCharacter&&board[2][0]==aCharacter)||
+                (board[0][0]==aCharacter&&board[0][1]==aCharacter&&board[0][2]==aCharacter))
         {
             gameEnded = true;
             return true;
@@ -101,12 +104,12 @@ public class TicTacToe
     }
     private void SetPlace(int i, int j)
     {
-        if(GameTable[i][j]==' ')
+        if(board[i][j]==0)
         {
-            GameTable[i][j] = player;
+            board[i][j] = player;
             isInputOk = true;
         }
-        else if (GameTable[i][j]!=' ' && player =='X')
+        else if (board[i][j]!=0 && player =='X')
         {
             System.out.println("Errore inserire una casella vuota");
             isInputOk = false;
@@ -121,28 +124,28 @@ public class TicTacToe
                  SetPlace(0,0);
                     break;
             case 2:
-                 SetPlace(0,2);
+                 SetPlace(0,1);
                     break;
             case 3:
-                  SetPlace(0,4);
+                  SetPlace(0,2);
                     break;
             case 4:
-                 SetPlace(2,0);
+                 SetPlace(1,0);
                     break;
             case 5:
-                  SetPlace(2,2);
+                  SetPlace(1,1);
                     break;
             case 6:
-                 SetPlace(2,4);
+                 SetPlace(1,2);
                     break;
             case 7:
-                 SetPlace(4,0);
+                 SetPlace(2,0);
                     break;
             case 8:
-                 SetPlace(4,2);
+                 SetPlace(2,1);
                     break;
             case 9:
-                 SetPlace(4,4);
+                 SetPlace(2,2);
                     break;
         }
     }

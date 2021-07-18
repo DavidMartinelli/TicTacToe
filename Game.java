@@ -1,26 +1,31 @@
 package com.company;
 public class Game
 {
+    private enum Turn
+    {
+        Player,
+        Cpu
+    }
     private  Player player1 = new Player ();
     private TicTacToe tris = new TicTacToe();
     private Bot cpu = new Bot();
-
+    Turn _turn = Turn.Player;
     public void Play()
     {
-
+        tris.printGameBoard();
         while(!tris.isGameEnded())
         {
-            tris.PrintGameTable();
-            System.out.println("Inserisci la tua mossa (1-9)");
-            tris.setC("player");
-            SetPlayerMove();
-            tris.CheckWin();
-            tris.PrintGameTable();
-            tris.setC("cpu");
-            SetBotMove();
-            tris.CheckWin();
-            tris.PrintGameTable();
-
+            if(_turn ==Turn.Player)
+            {
+                System.out.println("Inserisci la tua mossa (1-9)");
+                doPlayerTurn();
+                _turn = Turn.Cpu;
+            }
+            else
+            {
+                doCpuTurn();
+                _turn = Turn.Player;
+            }
         }
         if(tris.GetWinner().equals("Tie"))
         {
@@ -31,7 +36,7 @@ public class Game
             System.out.printf("il giocatore %s ha vinto!",tris.GetWinner());
         }
     }
-    public void  SetPlayerMove()
+    private void  SetPlayerMove()
     {
         if(tris.isSpaceFounded())
         {
@@ -43,7 +48,23 @@ public class Game
             SetPlayerMove();
         }
     }
-    public  void SetBotMove()
+    private void doCpuTurn()
+    {
+        tris.setC("cpu");
+        SetBotMove();
+        tris.printGameBoard();
+        tris.CheckWin();
+
+    }
+    private void doPlayerTurn()
+    {
+        tris.setC("player");
+        SetPlayerMove();
+        tris.printGameBoard();
+        tris.CheckWin();
+
+    }
+    private  void SetBotMove()
     {
         if(tris.isSpaceFounded())
         {
