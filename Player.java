@@ -13,7 +13,16 @@ public class Player
     {
         Scanner scan = new Scanner(System.in);
         int pos = scan.nextInt();
-        this.pos = pos;
+        if(pos>=0&&pos<=9)
+        {
+            this.pos = pos;
+        }
+        else
+        {
+            System.out.println("retry");
+            SetPosition();
+        }
+
     }
 
 }

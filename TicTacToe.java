@@ -104,6 +104,7 @@ public class TicTacToe
     }
     private void SetPlace(int i, int j)
     {
+
         if(board[i][j]==0)
         {
             board[i][j] = player;
